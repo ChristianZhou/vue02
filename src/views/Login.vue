@@ -17,13 +17,18 @@
 </template>
 
 <script>
+import {postKeyValueRequest} from "../utils/api";
 export default {
   name: "Login",
   methods: {
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          alert('submit!');
+          postKeyValueRequest('/doLogin', this.loginForm).then(value => {
+            if (value) {
+              alert(JSON.stringify(value))
+            }
+          })
         } else {
           console.log('error submit!!');
           this.$message.error("Please input all field!")
@@ -68,10 +73,10 @@ export default {
 
 .loginRemember {
   text-align: left;
-  margin: 0px 0px 15px 0px;
+  margin: 0 0 15px 0;
 }
 
 .loginButton {
-  margin: 0px 0px 10px 0px;
+  margin: 0 0 10px 0;
 }
 </style>
